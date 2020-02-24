@@ -41,4 +41,15 @@ class DatabaseHelper {
         await openDatabase(path, version: 1, onCreate: _createDb);
     return notesDatabase;
   }
+
+  void _createDb(Database db, int newVersion) async {
+    await db.execute(
+        'CREATE TABLE $noteTable($colID INTEGER PRIMARY KEY AUTOINCREMENT, $colTitle TEXT, $colDescription TEXT, $colPriority INTEGER, $colDate TEXT)');
+  }
+
+  Future<List<Map<String, dynamic>>> getNoteMapList() async {
+    Database db = await this.database;
+    var result = await db.query(noteTable, orderBy: '$colPriority ASC');
+    return result;
+  }
 }
