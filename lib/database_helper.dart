@@ -72,4 +72,24 @@ class DatabaseHelper {
         await db.rawDelete('DELETE FROM $noteTable where $colID = $id');
     return result;
   }
+
+  Future<int> getCount() async {
+    Database db = await this.database;
+    List<Map<String, dynamic>> x =
+        await db.rawQuery('SELECT COUNT (*) from $noteTable');
+    int result = Sqflite.firstIntValue(x);
+    return result;
+  }
+
+  Future<List<Note>> getNoteList() async {
+    var noteMapList = await getNoteMapList();
+
+    int count = noteMapList.length;
+
+    List<Note> noteList = List<Note>();
+    for (int i = 0; i < count; i++) {
+      noteList.add(Note.fromMapObject(noteMapList[i]));
+    }
+    return noteList;
+  }
 }
