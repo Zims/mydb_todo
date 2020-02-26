@@ -5,21 +5,18 @@ class Note {
   String _date;
   int _priority;
 
-  //creating a note it gets an auto id
   Note(this._title, this._date, this._priority, [this._description]);
-
-  //when we want to edit we need an id, so this is for edditing
   Note.withId(this._id, this._title, this._date, this._priority,
       [this._description]);
 
-// all the getters
+// All the getters
   int get id => _id;
-  String get title => title;
+  String get title => _title;
   String get description => _description;
   String get date => _date;
   int get priority => _priority;
 
-  //all the setters
+  // All the setter
   set title(String newTitle) {
     if (newTitle.length <= 255) {
       this._title = newTitle;
@@ -42,9 +39,9 @@ class Note {
     }
   }
 
-  //used to save and retrive from db
+  //Used to save and retrive from database
 
-  //convert note object to map object
+//convert note object to map object
   Map<String, dynamic> toMap() {
     var map = Map<String, dynamic>();
     if (id != null) {

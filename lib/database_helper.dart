@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'Note.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
@@ -7,8 +5,8 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 
 class DatabaseHelper {
-  static DatabaseHelper _databaseHelper; //singleton
-  static Database _database;
+  static DatabaseHelper _databaseHelper; //Singleton
+  static Database _database; //singleton
 
   String noteTable = 'note_table';
   String colID = 'id';
@@ -25,6 +23,7 @@ class DatabaseHelper {
     }
     return _databaseHelper;
   }
+
 //custom getter
   Future<Database> get database async {
     if (_database == null) {
@@ -49,6 +48,8 @@ class DatabaseHelper {
 
   Future<List<Map<String, dynamic>>> getNoteMapList() async {
     Database db = await this.database;
+    //optional
+    // var result = await db.rawQuery('SELECT * from $noteTable order by $colPriority ASC');
     var result = await db.query(noteTable, orderBy: '$colPriority ASC');
     return result;
   }
